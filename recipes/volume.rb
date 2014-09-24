@@ -27,7 +27,7 @@ unless node['cloud']['provider'] == 'vsphere'
   return
 end
 
-device_nickname = 'vsphere_temporary_volume'
+device_nickname = node['temporary_storage']['nickname']
 size = node['temporary_storage']['volume_size'].to_i
 
 volume_options = {}

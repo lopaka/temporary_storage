@@ -21,4 +21,10 @@ marker 'recipe_start_rightscale' do
   template 'rightscale_audit_entry.erb'
 end
 
+# Continue only if on vsphere.
+unless node['cloud']['provider'] == 'vsphere'
+  log 'Temporary volumes not used on this cloud.'
+  return
+end
+
 include_recipe 'rightscale_volume::default'

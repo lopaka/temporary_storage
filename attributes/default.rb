@@ -20,6 +20,9 @@
 # The mount point where the device will be mounted
 default['temporary_storage']['mount_point'] = '/mnt/storage'
 
+# Nickname for the device
+default['temporary_storage']['nickname'] = 'vsphere_temporary_volume'
+
 # Size of the volume to be created
 default['temporary_storage']['volume_size'] = 10
 
