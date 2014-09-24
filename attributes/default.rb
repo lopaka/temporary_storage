@@ -25,3 +25,10 @@ default['temporary_storage']['volume_size'] = 10
 
 # Volume type
 default['temporary_storage']['volume_type'] = nil
+
+# The filesystem to be used on the device
+default['temporary_storage']['filesystem'] = 'ext4'
+
+# The additional options/flags to use for the `mkfs` command. If the whole device is formatted, the force (-F) flag
+# can be used (on ext4 filesystem) to force the operation. This flag may vary based on the filesystem type.
+default['temporary_storage']['mkfs_options'] = '-F'

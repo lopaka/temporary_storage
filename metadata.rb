@@ -6,7 +6,6 @@ description      'Provides recipes for managing temporary volumes on a Server in
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
 
-depends 'chef_handler', '~> 1.1.6'
 depends 'filesystem', '~> 0.9.0'
 depends 'marker', '~> 1.0.0'
 depends 'rightscale_volume', '~> 1.2.1'
@@ -18,8 +17,8 @@ recipe 'temporary_storage::decommission', 'Detaches and destroys the temporary v
 
 attribute 'temporary_storage/mount_point',
   :display_name => 'Temporary Volume Mount Point',
-  :description => 'The mount point to mount the temporary device on. Example: /mnt/storage',
-  :default => '/mnt/storage',
+  :description => 'The mount point to mount the temporary device on. Example: /mnt/ephemeral',
+  :default => '/mnt/ephemeral',
   :recipes => ['temporary_storage::volume', 'temporary_storage::decommission'],
   :required => 'recommended'
 
@@ -35,4 +34,4 @@ attribute 'temporary_storage/volume_type',
   :description => 'Volume Type to use for creating the temporary volume. Currently this value is only used on vSphere.' +
     ' Example: Platinum-Volume-Type',
   :recipes => ['temporary_storage::volume'],
-  :required => 'optional'
+  :required => 'recommended'

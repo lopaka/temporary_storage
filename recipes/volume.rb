@@ -16,3 +16,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+marker 'recipe_start_rightscale' do
+  template 'rightscale_audit_entry.erb'
+end
+
+# Continue only if on vsphere.
+unless node['cloud']['provider'] == 'vsphere'
+  log 'Temporary volumes not used on this cloud.'
+  return
+end
+
+device_nickname = 'vsphere_temporary_volume'
+size = node['temporary_storage']['volume_size'].to_i
+
+volume_options = {}
+volume_options[:volume_type] = node['temporary_storage']['volume_type']
+volume_options[:controller_type] = node['temporary_storage']['controller_type']
+
+log "Creating new temporary volume '#{device_nickname}' with size #{size}"
+rightscale_volume device_nickname do
+  size size
+  options volume_options
+  action [:create, :attach]
+end
+
+filesystem device_nickname do
+  fstype node['temporary_storage']['filesystem']
+  device lazy { node['rightscale_volume'][device_nickname]['device'] }
+  mkfs_options node['temporary_storage']['mkfs_options']
+  mount node['temporary_storage']['mount_point']
+  action [:create, :enable, :mount]
+end
