@@ -17,21 +17,21 @@ recipe 'temporary_storage::decommission', 'Detaches and destroys the temporary v
 
 attribute 'temporary_storage/mount_point',
   :display_name => 'Temporary Volume Mount Point',
-  :description => 'The mount point to mount the temporary device on. Example: /mnt/ephemeral',
+  :description => 'The mount point to mount the temporary device on. Only used on vSphere. Example: /mnt/ephemeral',
   :default => '/mnt/ephemeral',
   :recipes => ['temporary_storage::volume', 'temporary_storage::decommission'],
   :required => 'recommended'
 
 attribute 'temporary_storage/volume_size',
   :display_name => 'Temporary Volume Size',
-  :description => 'Size of the volume or logical volume to create (in GB). Example: 10',
+  :description => 'Size of the volume or logical volume to create (in GB). Only used on vSphere. Example: 10',
   :default => '10',
   :recipes => ['temporary_storage::volume'],
   :required => 'recommended'
 
 attribute 'temporary_storage/volume_type',
   :display_name => 'Volume Type',
-  :description => 'Volume Type to use for creating the temporary volume. Currently this value is only used on vSphere.' +
+  :description => 'Volume Type to use for creating the temporary volume. Only used on vSphere.' +
     ' Example: Platinum-Volume-Type',
   :recipes => ['temporary_storage::volume'],
   :required => 'recommended'

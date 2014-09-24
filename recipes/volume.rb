@@ -32,7 +32,7 @@ size = node['temporary_storage']['volume_size'].to_i
 
 volume_options = {}
 volume_options[:volume_type] = node['temporary_storage']['volume_type']
-volume_options[:controller_type] = node['temporary_storage']['controller_type']
+volume_options[:controller_type] = node['temporary_storage']['controller_type'] if node['temporary_storage']['controller_type']
 
 log "Creating new temporary volume '#{device_nickname}' with size #{size}"
 rightscale_volume device_nickname do
